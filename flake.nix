@@ -12,9 +12,11 @@
     {
       nixosConfigurations.umbra = nixpkgs.lib.nixosSystem {
         inherit system;
+
         modules = [
           "${nixpkgs}/nixos/modules/virtualisation/disk-image.nix"
           ./configuration.nix
+
           {
             image = {
               baseName = "umbra";
@@ -22,9 +24,7 @@
               efiSupport = true;
             };
 
-            # The image builder creates a sparse disk and grows the ext4
-            # filesystem to fill it on first boot.
-            virtualisation.diskSize = 2048;
+            virtualisation.diskSize = 4096;
           }
         ];
       };
